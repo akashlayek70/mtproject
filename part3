@@ -23,7 +23,7 @@ pipeline {
     stages {
         stage("first stage: here we checkout the code from github") {
             steps {
-                git 'https://github.com/akshu20791/addressbook-cicd-project'
+                git 'https://github.com/akashlayek70/addressbook-cicd-project'
                 echo "cloning the code in jenkins workspace"
             }
         }
