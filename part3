@@ -12,37 +12,40 @@ install plugings
 create a job and select pipeline in configure write the code 
 
 
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage("first stage: here we checkout the code from github"){
-            steps{
+    
+    // This instructs Jenkins to load the tool configuration you just created
+    tools {
+        maven 'maven-3' 
+    }
+
+    stages {
+        stage("first stage: here we checkout the code from github") {
+            steps {
                 git 'https://github.com/akshu20791/addressbook-cicd-project'
                 echo "cloning the code in jenkins workspace"
             }
         }
-        stage("compile the code by akshat"){
-            steps{
-                sh 'mvn compile'
+        
+        stage("compile the code by akshat") {
+            steps {
                 echo "compiling the project"
+                sh 'mvn clean compile'
             }
         }
-        stage("runnng the test case"){
-            steps{
+        
+        stage("runnng the test case") {
+            steps {
                 sh 'mvn test'
             }
         }
-        stage("packaging the project by akshat"){
-            steps{
-                sh 'mvn package'
+        
+        stage("packaging the project by akshat") {
+            steps {
+                sh 'mvn package -DskipTests'
             }
         }
-        // stage("depoy the project"){
-        //     steps{
-        //         sh 'sudo cp /var/lib/jenkins/workspace/project-pipeline/target/addressbook.war /home/ubuntu/apache-tomcat-9.0.108/webapps'
-        //     }
-        // }
-    
     }
 }
 
